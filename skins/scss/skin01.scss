@@ -1,0 +1,403 @@
+/**
+ * skin01.scss
+ *
+ * Widget front styling - skin #01
+ */
+
+/***********/
+/* imports */
+/***********/
+
+@import "skin01_params";
+@import "skin01_functions";
+
+@charset "utf-8";
+
+/**************/
+/* skin style */
+/**************/
+
+.anylist-widget {
+
+	/***********/
+	/* general */
+	/***********/
+
+	&, & * {
+		@include reset;
+	}
+
+	.anylist-filter {
+		margin: 15px 0;
+
+		/****************/
+		/* filter title */
+		/****************/
+
+		.anylist-filter-title {
+			position: relative;
+			padding: 7px 0 7px 30px;
+			background-color: $blue-color2;
+			cursor: pointer;
+
+			h3 {
+				font-size: 20px;
+				font-weight: bold;
+				color: $font-color;
+			}
+
+			.anylist-loader {
+				position: absolute;
+				top: 5px;
+				right: 0;
+				margin-right: 10px;
+				display: none;
+			}
+
+			&:before {
+				content: "";
+				position: absolute;
+				top: 11px;
+				left: 10px;
+				width: 0;
+				height: 0;
+				border-top: 7.5px solid transparent;
+				border-bottom: 7.5px solid transparent;
+				border-left: 13px solid $gray-color1;
+			}
+
+			& + .anylist-filter-content {
+				display: none;
+			}
+
+			&:hover,
+			&.collapsed {
+				background-color: $blue-color1;
+			}
+
+			&.collapsed {
+				&:before {
+					top: 12px;
+					border-top: 13px solid $gray-color1;
+					border-right: 7.5px solid transparent;
+					border-bottom: 0;
+					border-left: 7.5px solid transparent;
+				}
+
+				& + .anylist-filter-content {
+					display: block;
+				}
+			}
+		}
+
+		/******************/
+		/* filter content */
+		/******************/
+
+		.anylist-filter-content {
+			padding: 5px 0;
+			background-color: $gray-color5;
+		}
+
+		/*******************/
+		/* categories menu */
+		/*******************/
+
+		&.anylist-category-filter {
+			.anylist-category-filter-title {
+				background-color: $red-color2;
+
+				&:hover,
+				&.collapsed {
+					background-color: $red-color1;
+				}
+			}
+
+			ul.categories {
+				list-style: none;
+
+				li {
+					position: relative;
+
+					& > a {
+						padding: 5px 10px 5px 35px;
+						font-size: 16px;
+						color: $font-color;
+						text-decoration: none;
+						cursor: pointer;
+						display: block;
+
+						&:hover {
+							background-color: $gray-color4;
+						}
+
+						& > .item-before {
+							position: absolute;
+							top: 9.5px;
+							left: 10px;
+							width: 0;
+							height: 0;
+							border-top: 7.5px solid transparent;
+							border-bottom: 7.5px solid transparent;
+							border-left: 13px solid $gray-color1;
+							cursor: pointer;
+						}
+					}
+
+					& > ul.children {
+						padding: 5px 0;
+						background-color: $gray-color6;
+						list-style: none;
+						display: none;
+
+						li {
+							& > a {
+								padding-left: 55px;
+								font-size: 15px;
+
+								& > .item-before {
+									left: 28px;
+								}
+							}
+
+							label {
+								position: relative;
+								padding: 5px 10px 5px 55px;
+								cursor: pointer;
+								display: block;
+
+								&:before {
+									content: "";
+									position: absolute;
+									top: 7px;
+									left: 25px;
+									width: 20px;
+									height: 20px;;
+									background-color: $gray-color2;
+									@include border-radius(50%);
+								}
+
+								&:after {
+									content: "";
+									position: absolute;
+									top: 13px;
+									left: 29px;
+									width: 12px;
+									height: 6px;
+									border: 3px solid $white;
+									border-top: none;
+									border-right: none;
+									background: transparent;
+									@include opacity(0);
+									@include transform(rotate(-45deg));
+								}
+
+								&:hover {
+									background-color: $gray-color5;
+
+									&:before {
+										background-color: $orange-color2;
+									}
+								}
+
+								& > span {
+									font-size: 15px;
+									font-weight: normal;
+								}
+							}
+
+							input[type=checkbox] {
+								display: none;
+								
+								&:checked + label:before {
+									background-color: $orange-color2;
+								}
+
+								&:checked + label:after {
+									@include opacity(1);
+								}
+							}
+
+							& > ul.children {
+								li {
+									label {
+										padding-left: 70px;
+
+										&:before {
+											left: 45px;
+										}
+
+										&:after {
+											left: 49px;
+										}
+									}
+								}
+							}
+						}
+					}
+
+					&.collapsed {
+						& > a {
+							& > .item-before {
+								top: 11.5px;
+								border-top: 13px solid $gray-color1;
+								border-right: 7.5px solid transparent;
+								border-bottom: 0;
+								border-left: 7.5px solid transparent;
+							}
+						}
+
+						& > ul.children {
+							display: block;
+						}
+					}
+				}
+			}
+		}
+
+		/****************/
+		/* price filter */
+		/****************/
+
+		&.anylist-price-filter {
+			#anylist-price-filter-amount {
+				padding: 10px 15px;
+				background: transparent;
+			}
+
+			.ui-slider {
+				margin: 0 auto 10px;
+				height: 23px;
+				background: $gray-color2;
+				border: 0;
+				border-radius: 23px;
+				@include calc(width, "100% - 45px");
+
+				&:before,
+				&:after {
+					content: "";
+					position: absolute;
+					top: 0;
+					width: 23px;
+					height: 23px;
+					background: $gray-color2;
+				}
+
+				&:before {
+					left: -11px;
+					-webkit-border-top-left-radius:    50%;
+					-webkit-border-bottom-left-radius: 50%;
+					-moz-border-radius-topleft:        50%;
+					-moz-border-radius-bottomleft:     50%;
+					border-top-left-radius:            50%;
+					border-bottom-left-radius:         50%;					
+				}
+
+				&:after {
+					right: -11px;
+					-webkit-border-top-right-radius:    50%;
+					-webkit-border-bottom-right-radius: 50%;
+					-moz-border-radius-topright:        50%;
+					-moz-border-radius-bottomright:     50%;
+					border-top-right-radius:            50%;
+					border-bottom-right-radius:         50%;					
+				}
+
+				.ui-slider-range {
+					height: 23px;
+					background: $orange-color1;
+				}
+
+				.ui-slider-handle {
+					top: 0;
+					width: 23px;
+					height: 23px;
+					@include border-radius(50%);
+					background: $orange-color2;
+					border: 0;
+
+					&.ui-state-active {
+						background: $orange-color3;
+					}
+
+					&.ui-state-hover {
+						background: $orange-color3;
+					}
+				}
+			}
+		}
+
+		/*******************/
+		/* taxonomy filter */
+		/*******************/
+
+		&.anylist-tax-filter {
+			ul.tax-terms {
+				list-style: none;
+
+				li {
+					position: relative;
+
+					label {
+						position: relative;
+						padding: 5px 10px 5px 55px;
+						font-weight: normal;
+						cursor: pointer;
+						display: block;
+
+						&:before {
+							content: "";
+							position: absolute;
+							top: 7px;
+							left: 25px;
+							width: 20px;
+							height: 20px;;
+							background-color: $gray-color2;
+							@include border-radius(50%);
+						}
+
+						&:after {
+							content: "";
+							position: absolute;
+							top: 13px;
+							left: 29px;
+							width: 12px;
+							height: 6px;
+							border: 3px solid $white;
+							border-top: none;
+							border-right: none;
+							background: transparent;
+							@include opacity(0);
+							@include transform(rotate(-45deg));
+						}
+
+						&:hover {
+							background-color: $gray-color4;
+
+							&:before {
+								background-color: $orange-color2;
+							}
+						}
+
+						& > span {
+							font-size: 15px;
+							font-weight: normal;
+						}
+					}
+
+					input[type=checkbox] {
+						display: none;
+						
+						&:checked + label:before {
+							background-color: $orange-color2;
+						}
+
+						&:checked + label:after {
+							@include opacity(1);
+						}
+					}
+				}
+			}
+		}
+	}
+}
